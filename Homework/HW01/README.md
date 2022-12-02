@@ -1,4 +1,4 @@
-**README**
+# README
 
 HW0101:
 the use of function `printf` and ANSI escape code
