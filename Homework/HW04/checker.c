@@ -1,3 +1,4 @@
+//Made by @nottyl
 #include "checker.h"
 #include <stdio.h>
 
@@ -93,6 +94,7 @@ void checkerInitialize(){
 
 void checkerDisplay(){
     //-1 = Gap, 0 = Space, 1 = Red, 2 = Green, 3 = Yellow
+
     for(int i = 0; i < 17; i++){
         for(int j = 0; j < 25; j++){
             if(board[i][j] == -1){
@@ -186,15 +188,36 @@ int checkerValidity(int x, int y, int playerTurn, int io){
                 }
             }
             if(board[x][y] == 3){
-                if(board[x][y+2]==0||board[x][y-2]==0||board[x+1][y-1]==0||board[x+1][y+1]==0||board[x-1][y+1]==0||board[x-1][y-1]==0){
+                if(board[x][y+2]==0||board[x][y-2]==0||board[x+1][y-1]==0||board[x+1][y+1]==0){
                     inputX = x;
                     inputY = y;
                     return 0;
                 }
-                else if(board[x][y+4]==0 || board[x][y-4]==0 || board[x+2][y-1]==0 || board[x+2][y+1]==0 || board[x-2][y+1]==0 || board[x-2][y-1]==0){
+                else if(board[x][y+4]==0 || board[x][y-4]==0){
                     inputX = x;
                     inputY = y;
                     return 0;
+                }
+                else if(x>1){
+                    if(board[x+2][y-2]==0 || board[x+2][y+2]==0 || board[x-2][y+2]==0 || board[x-2][y-2]==0){
+                        inputX = x;
+                        inputY = y;
+                        return 0;
+                    }
+                    else{
+                        printf("No moves can be made! Please enter again.\n");
+                        return 1;
+                    }
+                }
+                else if(x>0){
+                    if(board[x-1][y+1]==0||board[x-1][y-1]==0){
+                        inputX = x;
+                        inputY = y;
+                        return 0;
+                    }else{
+                        printf("No moves can be made! Please enter again.\n");
+                        return 1;
+                    }
                 }
                 else{
                     printf("No moves can be made! Please enter again.\n");
@@ -257,7 +280,7 @@ int checkerValidity(int x, int y, int playerTurn, int io){
                     inputY = y;
                     return 0;
                 }
-                else if(board[x][y+4]==0 || board[x][y-4]==0 || board[x+2][y-1]==0 || board[x+2][y+1]==0 || board[x-2][y+1]==0 || board[x-2][y-1]==0){
+                else if(board[x][y+4]==0 || board[x][y-4]==0 || board[x+2][y-2]==0 || board[x+2][y+2]==0 || board[x-2][y+2]==0 || board[x-2][y-2]==0){
                     inputX = x;
                     inputY = y;
                     return 0;
@@ -323,7 +346,7 @@ int checkerValidity(int x, int y, int playerTurn, int io){
                     inputY = y;
                     return 0;
                 }
-                else if(board[x][y+4]==0 || board[x][y-4]==0 || board[x+2][y-1]==0 || board[x+2][y+1]==0 || board[x-2][y+1]==0 || board[x-2][y-1]==0){
+                else if(board[x][y+4]==0 || board[x][y-4]==0 || board[x+2][y-2]==0 || board[x+2][y+2]==0 || board[x-2][y+2]==0 || board[x-2][y-2]==0){
                     inputX = x;
                     inputY = y;
                     return 0;
@@ -388,7 +411,7 @@ int checkerGame(int input){
             printf("Yellow Player Turn:\n");
             printf("From: ");
             scanf("%d, %d", &iptX, &iptY);
-            while(checkerValidity(iptX, iptY, 1, 0) != 0){
+            while(checkerValidity((int)iptX, (int)iptY, 1, 0) != 0){
                 printf("From: ");
                 scanf("%d, %d", &iptX, &iptY);
             }
@@ -423,8 +446,8 @@ int checkerGame(int input){
             printf("From: ");
             scanf("%d, %d", &iptX, &iptY);
             while(checkerValidity(iptX, iptY, 0, 0) != 0){
-                printf("To: ");
-                scanf("%d, %d", &optX, &optY);
+                printf("From: ");
+                scanf("%d, %d", &iptX, &iptY);
             }
             printf("To: ");
             scanf("%d, %d", &optX, &optY);
